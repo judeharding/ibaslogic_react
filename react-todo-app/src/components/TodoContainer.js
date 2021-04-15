@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
+// import "../../src/index";
 import TodosList from "./TodosList";
 import Header from "./Header";
 import InputTodo from "./InputTodo";
@@ -69,10 +70,9 @@ class TodoContainer extends React.Component {
 
 	// component render is different from reactdom.render
 	render() {
-		//RETURNING JSX
 		return (
-			<div>
-				<div>
+			<div className="container">
+				<div className="inner">
 					<Header />
 
 					<InputTodo addTodoProps={this.addTodoItem} />
