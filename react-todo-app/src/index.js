@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 //component file
 import TodoContainer from "./components/TodoContainer";
 
+// stylesheet
 import "./App.css";
 
 // RENDERING A CLASS-BASED COMPONENT
