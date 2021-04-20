@@ -20,6 +20,11 @@ class TodoItem extends React.Component {
 		}
 	};
 
+	// helps prevent memory leaks
+	componentWillUnmount() {
+		console.log("Cleaning up...");
+	}
+
 	render() {
 		const completedStyle = {
 			fontStyle: "italic",

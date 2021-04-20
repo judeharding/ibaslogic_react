@@ -9,23 +9,7 @@ import InputTodo from "./InputTodo";
 // CLASS-BASED COMPONENT
 class TodoContainer extends React.Component {
 	state = {
-		todos: [
-			{
-				id: uuidv4(),
-				title: "Setup development environment",
-				completed: true,
-			},
-			{
-				id: uuidv4(),
-				title: "Develop website and add content",
-				completed: false,
-			},
-			{
-				id: uuidv4(),
-				title: "Deploy to live server",
-				completed: false,
-			},
-		],
+		todos: [],
 	};
 
 	// checkbox on todo
@@ -68,6 +52,7 @@ class TodoContainer extends React.Component {
 		});
 	};
 
+	// update todo doubleclick
 	setUpdate = (updatedTitle, id) => {
 		this.setState({
 			todos: this.state.todos.map((todo) => {
@@ -78,6 +63,38 @@ class TodoContainer extends React.Component {
 			}),
 		});
 	};
+
+	// grabbing data with the FETCH API
+	// componentDidMount() {
+	// 	fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
+	// 		.then((response) => response.json())
+	// 		.then((data) => this.setState({ todos: data }));
+	// }
+
+	// component did update method
+	// componentDidUpdate(prevProps, prevState) {
+	// 	below prevents an infinite loop
+	//   if(prevState.todos !== this.state.todos) {
+	//    //logic here
+	// 	}
+	// }
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.todos !== this.state.todos) {
+			const temp = JSON.stringify(this.state.todos);
+			localStorage.setItem("todos", temp);
+		}
+	}
+
+	componentDidMount() {
+		const temp = localStorage.getItem("todos");
+		const loadedTodos = JSON.parse(temp);
+		if (loadedTodos) {
+			this.setState({
+				todos: loadedTodos,
+			});
+		}
+	}
 
 	// component render is different from reactdom.render
 	render() {
