@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Route, Switch } from "react-router-dom";
 //
 import Header from "./Header";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
+import About from "../pages/About";
+import NotMatch from "../pages/NotMatch";
+import Navbar from "./Navbar";
 
 const TodoContainer = () => {
 	//Hook
@@ -61,20 +65,6 @@ const TodoContainer = () => {
 		localStorage.setItem("todos", temp);
 	}, [todos]);
 
-	// //updates local storage on the first render
-	// // and after every state or prop changes
-	// useEffect(() => {
-	// 	console.log("test run");
-
-	// 	// getting stored items
-	// 	const temp = localStorage.getItem("todos");
-	// 	const loadedTodos = JSON.parse(temp);
-
-	// 	if (loadedTodos) {
-	// 		setTodos(loadedTodos);
-	// 	}
-	// }, [setTodos]);
-
 	// GETS any local storage todos
 	function getInitialTodos() {
 		// getting stored items
@@ -84,18 +74,39 @@ const TodoContainer = () => {
 	}
 
 	return (
-		<div className="container">
-			<div className="inner">
-				<Header />
-				<InputTodo addTodoProps={addTodoItem} />
-				<TodosList
-					todos={todos}
-					handleChangeProps={handleChange}
-					deleteTodoProps={delTodo}
-					setUpdate={setUpdate}
-				/>
-			</div>
-		</div>
+		// react fragment <></> so you can return "multiple routes"
+		<>
+			<Navbar />
+
+			{/* switch component matches the url with the path  */}
+			<Switch>
+				{/* exclusive HOME route */}
+				<Route exact path="/">
+					<div className="container">
+						<div className="inner">
+							<Header />
+							<InputTodo addTodoProps={addTodoItem} />
+							<TodosList
+								todos={todos}
+								handleChangeProps={handleChange}
+								deleteTodoProps={delTodo}
+								setUpdate={setUpdate}
+							/>
+						</div>
+					</div>
+				</Route>
+
+				{/* ABOUT  route */}
+				<Route path="/about">
+					<About />
+				</Route>
+
+				{/* CATCHALL route */}
+				<Route path="*">
+					<NotMatch />
+				</Route>
+			</Switch>
+		</>
 	);
 };
 
