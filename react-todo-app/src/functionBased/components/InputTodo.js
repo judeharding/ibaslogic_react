@@ -1,8 +1,7 @@
 // importing the useState for hooks
 import React, { useState } from "react";
 
-// https://ibaslogic.com/react-hooks-tutorial/
-// What’s happening in the code?
+import { FaPlusCircle } from "react-icons/fa";
 
 const InputTodo = (props) => {
 	// HOOK
@@ -75,10 +74,12 @@ const InputTodo = (props) => {
 					onChange={onChange}
 				/> */}
 
-				<button className="input-submit">Submit</button>
+				<button className="input-submit">
+					<FaPlusCircle color="darkcyan" size="20px" className="submit-icon" />
+				</button>
 			</form>
-			<h2>{inputText.fName}</h2>
-			<h2>{inputText.lastName}</h2>
+			{/* <h2>{inputText.fName}</h2>
+			<h2>{inputText.lastName}</h2> */}
 		</>
 	);
 };
